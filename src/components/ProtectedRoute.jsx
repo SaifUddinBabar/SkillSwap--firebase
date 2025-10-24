@@ -1,10 +1,21 @@
+import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../utils/firebase.config";
+import Loader from "./Loader";
 
-const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth();
-  if (loading) return <p>Loading...</p>;
-  return user ? children : <Navigate to="/login" />;
-};
+export default function ProtectedRoute({ children }) {
+  const [user, loading] = useAuthState(auth);
+  const [showLoader, setShowLoader] = useState(true);
 
-export default ProtectedRoute;
+  useEffect(() => {
+    const timer = setTimeout(() => setShowLoader(false), 1000); 
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading || showLoader) return <Loader />; 
+
+  if (!user) return <Navigate to="/login" replace />;
+
+  return children;
+}

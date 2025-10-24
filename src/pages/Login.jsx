@@ -12,7 +12,6 @@ export default function Login() {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  // Handle Email & Password Login
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -24,7 +23,6 @@ export default function Login() {
     }
   };
 
-  // Handle Google Login
   const handleGoogleLogin = async () => {
     try {
       const provider = new GoogleAuthProvider();
@@ -36,26 +34,28 @@ export default function Login() {
     }
   };
 
+  const handleForgotPassword = () => {
+    navigate("/forgot-password", { state: { email } });
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0d0f2c] to-[#1b1f44] px-4">
       <Toaster />
       <form
         onSubmit={handleSubmit}
-        className="bg-white w-full max-w-md p-8 rounded-2xl shadow-xl flex flex-col"
+        className="bg-gradient-to-br from-[#1b1f44] to-[#0f1230] rounded-3xl shadow-2xl w-full max-w-md p-8 flex flex-col border border-blue-500/40 transition-transform transform hover:scale-105"
       >
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Login</h2>
+        <h2 className="text-3xl font-bold text-center text-blue-300 mb-6 drop-shadow-lg">Login</h2>
 
-        {/* Email */}
         <input
           type="email"
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full p-3 mb-4 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-[#0d0f2c] text-white border-blue-500 placeholder-gray-400 transition"
         />
 
-        {/* Password */}
         <div className="relative mb-4">
           <input
             type={showPassword ? "text" : "password"}
@@ -63,39 +63,41 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-[#0d0f2c] text-white border-blue-500 placeholder-gray-400 transition"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition"
           >
             {showPassword ? "Hide" : "Show"}
           </button>
         </div>
 
-        {/* Login Button */}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition mb-3"
+          className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl font-semibold active:scale-95 transition shadow-lg mb-3"
         >
           Login
         </button>
 
-        {/* Google Login */}
         <button
           type="button"
           onClick={handleGoogleLogin}
-          className="w-full py-3 border rounded-lg font-medium hover:bg-gray-100 transition mb-4"
+          className="w-full py-3 border rounded-xl font-medium hover:bg-blue-900/20 transition text-white mb-4 border-blue-500"
         >
           Continue with Google
         </button>
 
         <div className="flex justify-between text-sm">
-          <Link to="/forgot-password" className="text-blue-600 hover:underline">
+          <button
+            type="button"
+            onClick={handleForgotPassword}
+            className="text-blue-400 hover:underline"
+          >
             Forgot Password?
-          </Link>
-          <Link to="/signup" className="text-blue-600 hover:underline">
+          </button>
+          <Link to="/signup" className="text-blue-400 hover:underline">
             Signup
           </Link>
         </div>

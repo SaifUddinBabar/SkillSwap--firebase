@@ -25,12 +25,12 @@ export default function SkillCard({ skill }) {
         </span>
       </div>
 
-      <h4 className="mt-3 font-semibold text-lg">{skill.skillName}</h4>
+      <h4 className="mt-3 font-semibold text-black text-lg">{skill.skillName}</h4>
       <p className="text-sm text-gray-500">by {skill.providerName}</p>
 
       <div className="mt-2 flex items-center justify-between">
-        <span className="font-bold">${skill.price}</span>
-        <span className="text-sm">⭐ {skill.rating}</span>
+        <span className="font-bold text-black">${skill.price}</span>
+        <span className="text-sm text-black">⭐ {skill.rating}</span>
       </div>
 
       <button
